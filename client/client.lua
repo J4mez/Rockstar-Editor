@@ -1,3 +1,4 @@
+ESX = nil
 local Keys = {
 	['ESC'] = 322, ['F1'] = 288, ['F2'] = 289, ['F3'] = 170, ['F5'] = 166, ['F6'] = 167, ['F7'] = 168, ['F8'] = 169, ['F9'] = 56, ['F10'] = 57, 
 	['~'] = 243, ['1'] = 157, ['2'] = 158, ['3'] = 160, ['4'] = 164, ['5'] = 165, ['6'] = 159, ['7'] = 161, ['8'] = 162, ['9'] = 163, ['-'] = 84, ['='] = 83, ['BACKSPACE'] = 177, 
@@ -9,7 +10,18 @@ local Keys = {
 	['LEFT'] = 174, ['RIGHT'] = 175, ['TOP'] = 27, ['DOWN'] = 173,
 	['NENTER'] = 201, ['N4'] = 108, ['N5'] = 60, ['N6'] = 107, ['N+'] = 96, ['N-'] = 97, ['N7'] = 117, ['N8'] = 61, ['N9'] = 118
 }
+Citizen.CreateThread(function()
+	while ESX == nil do
+		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+	end
+		Citizen.Wait(0)
 
+	while ESX.GetPlayerData().job == nil do
+		Citizen.Wait(10)
+	end
+
+	ESX.PlayerData = ESX.GetPlayerData()
+end)
 function startReRecording()
     --start recording with RE
     StartRecording(1) --https://docs.fivem.net/natives/?_0xC3AC2FFF9612AC81
@@ -37,7 +49,7 @@ function openMenu()
         'default', GetCurrentResourceName(), 'menu',
         {
             title    = _U('menu'),
-            align    = 'top-left',
+            align    = 'top-rigth',
             elements = elements
         },
         function(data, menu)
@@ -53,8 +65,13 @@ function openMenu()
     )
     
 end
+Citizen.CreateThread(function()
+	while true do
 
+		Citizen.Wait(0)
 
-if IsControlJustReleased(0, Keys['HOME']) then
-    openMenu()
-end
+        if IsControlJustReleased(0, Keys['HOME']) then
+            openMenu()
+        end
+    end
+end)

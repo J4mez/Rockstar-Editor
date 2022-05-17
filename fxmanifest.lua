@@ -13,3 +13,13 @@ client_scripts {
 server_script {
     'server/server.lua',
 }
+shared_script{
+    'config.lua',
+    '@es_extended/locale.lua',
+    'server/server.lua',
+    'locales/en.lua',
+    'locales/de.lua',
+}
+dependencies {
+    'es_extended',
+}
