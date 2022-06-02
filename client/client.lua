@@ -70,7 +70,7 @@ Citizen.CreateThread(function()
 
 		Citizen.Wait(0)
 
-        if IsControlJustReleased(0, Keys['HOME']) then
+        if IsControlJustReleased(0, Keys[Config.Key]) then
             openMenu()
         end
     end
